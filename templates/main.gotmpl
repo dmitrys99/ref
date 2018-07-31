@@ -1,0 +1,26 @@
+package main
+
+import (
+	api "github.com/dmitrys99/refimpl/api"
+	drv "github.com/dmitrys99/refimpl/driver"
+	"net/http"
+	"time"
+)
+
+func main() {
+	adminUserDriver := drv.AdminUserDriver{}
+	
+	webapi := api.WebApi{AdminUser: adminUserDriver}
+	
+	srv := &http.Server{
+		Addr:         "localhost:8880",
+		WriteTimeout: time.Second * 30,
+		ReadTimeout:  time.Second * 30,
+		IdleTimeout:  time.Second * 60,
+		Handler:      webapi.GetAllRoutes(),
+	}
+	
+	if err := srv.ListenAndServe(); err != nil {
+		panic(err)
+	}
+}
