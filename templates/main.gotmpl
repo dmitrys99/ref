@@ -8,17 +8,9 @@ import (
 )
 
 func main() {
-	adminUserDriver := drv.AdminUserDriver{}
+	webapi := New{{ pascalize .Name}}API()
 	
-	webapi := api.WebApi{AdminUser: adminUserDriver}
-	
-	srv := &http.Server{
-		Addr:         "localhost:8880",
-		WriteTimeout: time.Second * 30,
-		ReadTimeout:  time.Second * 30,
-		IdleTimeout:  time.Second * 60,
-		Handler:      webapi.GetAllRoutes(),
-	}
+	srv := NewServer(webapi)
 	
 	if err := srv.ListenAndServe(); err != nil {
 		panic(err)
