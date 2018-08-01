@@ -1,7 +1,7 @@
 layout:
   application:
     - name: configure
-      source: asset:serverConfigureapi
+      source: templates/server/configureapi.gotmpl
       target: "{{ joinFilePath .Target .ServerPackage }}"
       file_name: "configure_{{ .Name }}.go"
       skip_exists: true
